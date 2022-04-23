@@ -1,2 +1,2 @@
 import "./style.scss"
-import "./javascript/p5/sketch"
+// import "./javascript/p5/sketch"
