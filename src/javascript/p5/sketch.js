@@ -1,6 +1,9 @@
-// const rows = 52
-const rows = 32
-const cols = 28
+let boxDimensions = window.innerHeight - 150
+
+let boxWidth = boxDimensions
+let boxHeight = boxDimensions
+
+let sizeText = 32
 
 const sizes = {
   width: window.innerWidth,
@@ -10,29 +13,29 @@ const sizes = {
 const pane = new Tweakpane.Pane()
 
 const PARAMS = {
-  symbol: "A",
-  colsSpace: 15,
-  rowsSpace: 25,
-  horizontalRandomness: 1,
-  verticalRandomness: 1,
+  symbol: "{",
+  rows: 20,
+  cols: 40,
+  horizontalRandomness: 0,
+  verticalRandomness: 0,
 }
 
 function setup() {
   createCanvas(sizes.width, sizes.height)
   noLoop()
 
-  pane.addInput(PARAMS, "colsSpace", {
-    min: 10,
-    max: 25,
-    step: 0.1,
-    label: "Horizontal Space",
+  pane.addInput(PARAMS, "cols", {
+    min: 20,
+    max: 200,
+    step: 1,
+    label: "Horizontal Amount",
   })
 
-  pane.addInput(PARAMS, "rowsSpace", {
-    min: 10,
-    max: 30,
-    step: 0.1,
-    label: "Vertical Space",
+  pane.addInput(PARAMS, "rows", {
+    min: 20,
+    max: 200,
+    step: 1,
+    label: "Vertical Amount",
   })
 
   pane.addInput(PARAMS, "symbol", {
@@ -58,18 +61,23 @@ function setup() {
 
 function draw() {
   background("#ffffff")
-  //   translate(sizes.width / 2, sizes.height / 2)
+  translate(sizes.width / 2, sizes.height / 2)
 
-  textSize(32)
-  // textAlign(CENTER)
+  //Box as helper
+  fill(220)
+  noStroke()
+  rect(0 - boxWidth / 2, 0 - boxHeight / 2, boxWidth, boxHeight)
+
+  textSize(sizeText)
+  textAlign(LEFT, TOP)
   fill("#000000")
 
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
+  for (let i = 0; i < PARAMS.rows; i++) {
+    for (let j = 0; j < PARAMS.cols; j++) {
       text(
         PARAMS.symbol,
-        j * PARAMS.colsSpace + Math.random() * PARAMS.horizontalRandomness,
-        i * PARAMS.rowsSpace + Math.random() * PARAMS.verticalRandomness
+        (boxWidth / PARAMS.cols) * j - boxWidth / 2,
+        (boxHeight / PARAMS.rows) * i - boxHeight / 2
       )
     }
   }
@@ -78,3 +86,7 @@ function draw() {
 function windowResized() {
   resizeCanvas(sizes.width, sizes.height)
 }
+
+setInterval(() => {
+  redraw()
+}, 500)
