@@ -1,4 +1,4 @@
-# DigitalPractice Tata Donovan
+# DigitalPractice Tara Donovan
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/) and run the following commands:
