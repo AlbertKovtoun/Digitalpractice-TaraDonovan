@@ -14,15 +14,27 @@ const pane = new Tweakpane.Pane()
 
 const PARAMS = {
   symbol: "{",
+  symbolColor: "#ff00ff",
   rows: 30,
   cols: 50,
   horizontalRandomness: 0,
   verticalRandomness: 0,
 }
 
+function colorAlpha(aColor, alpha) {
+  let c = color(aColor)
+  return color("rgba(" + [red(c), green(c), blue(c), alpha].join(",") + ")")
+}
+
 function setup() {
   createCanvas(sizes.width, sizes.height)
   noLoop()
+
+  pane.addInput(PARAMS, "symbol", {
+    label: "Symbol",
+  })
+
+  pane.addInput(PARAMS, "symbolColor")
 
   pane.addInput(PARAMS, "cols", {
     min: 20,
@@ -36,10 +48,6 @@ function setup() {
     max: 200,
     step: 1,
     label: "Vertical Amount",
-  })
-
-  pane.addInput(PARAMS, "symbol", {
-    label: "Symbol",
   })
 
   pane.addInput(PARAMS, "horizontalRandomness", {
@@ -73,8 +81,9 @@ function draw() {
 
   for (let i = 0; i < PARAMS.rows; i++) {
     for (let j = 0; j < PARAMS.cols; j++) {
-      fill(0, 0, 0, (200 / PARAMS.cols) * i)
-      // fill(0, 0, 0, 255)
+      // fill(0, 0, 0, (255 / PARAMS.rows) * i)
+      // fill(0, 0, 0, (90 * PARAMS.cols) / j)
+      fill(colorAlpha(PARAMS.symbolColor, 1))
       text(
         PARAMS.symbol,
         (boxWidth / PARAMS.cols) * j -

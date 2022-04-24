@@ -15,5 +15,10 @@ $secondary-color: #ffff00;
   box-sizing: border-box;
 
   //Make page not scrollable
-  overflow: hidden;
+  // overflow: hidden;
+}
+
+.tp-dfwv {
+  min-width: 300px;
+  left: 10px;
 }
