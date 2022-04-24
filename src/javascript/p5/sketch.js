@@ -15,6 +15,7 @@ const pane = new Tweakpane.Pane()
 const PARAMS = {
   symbol: "{",
   symbolColor: "#ff00ff",
+  backgroundColor: "#ffffff",
   rows: 30,
   cols: 50,
   horizontalRandomness: 0,
@@ -34,7 +35,13 @@ function setup() {
     label: "Symbol",
   })
 
-  pane.addInput(PARAMS, "symbolColor")
+  pane.addInput(PARAMS, "symbolColor", {
+    label: "Symbol Color",
+  })
+
+  pane.addInput(PARAMS, "backgroundColor", {
+    label: "Background Color",
+  })
 
   pane.addInput(PARAMS, "cols", {
     min: 20,
@@ -68,7 +75,7 @@ function setup() {
 }
 
 function draw() {
-  background("#ffffff")
+  background(PARAMS.backgroundColor)
   translate(sizes.width / 2, sizes.height / 2)
 
   //Box as helper
