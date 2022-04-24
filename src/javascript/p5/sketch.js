@@ -14,8 +14,8 @@ const pane = new Tweakpane.Pane()
 
 const PARAMS = {
   symbol: "{",
-  rows: 20,
-  cols: 40,
+  rows: 30,
+  cols: 50,
   horizontalRandomness: 0,
   verticalRandomness: 0,
 }
@@ -64,20 +64,25 @@ function draw() {
   translate(sizes.width / 2, sizes.height / 2)
 
   //Box as helper
-  fill(220)
-  noStroke()
-  rect(0 - boxWidth / 2, 0 - boxHeight / 2, boxWidth, boxHeight)
+  // fill(240)
+  // noStroke()
+  // rect(0 - boxWidth / 2, 0 - boxHeight / 2, boxWidth, boxHeight)
 
   textSize(sizeText)
   textAlign(LEFT, TOP)
-  fill("#000000")
 
   for (let i = 0; i < PARAMS.rows; i++) {
     for (let j = 0; j < PARAMS.cols; j++) {
+      fill(0, 0, 0, (200 / PARAMS.cols) * i)
+      // fill(0, 0, 0, 255)
       text(
         PARAMS.symbol,
-        (boxWidth / PARAMS.cols) * j - boxWidth / 2,
-        (boxHeight / PARAMS.rows) * i - boxHeight / 2
+        (boxWidth / PARAMS.cols) * j -
+          boxWidth / 2 +
+          Math.random() * PARAMS.horizontalRandomness,
+        (boxHeight / PARAMS.rows) * i -
+          boxHeight / 2 +
+          Math.random() * PARAMS.verticalRandomness
       )
     }
   }
@@ -86,7 +91,3 @@ function draw() {
 function windowResized() {
   resizeCanvas(sizes.width, sizes.height)
 }
-
-setInterval(() => {
-  redraw()
-}, 500)
