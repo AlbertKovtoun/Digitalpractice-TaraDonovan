@@ -14,17 +14,47 @@ const pane = new Tweakpane.Pane()
 
 const PARAMS = {
   symbol: "{",
-  symbolColor: "#ff00ff",
+  symbolColor: "#000000",
   backgroundColor: "#ffffff",
   rows: 30,
   cols: 50,
   horizontalRandomness: 0,
   verticalRandomness: 0,
+  density: 1,
+  fade: 0,
+  fadeStrength: 0.1,
 }
 
 function colorAlpha(aColor, alpha) {
   let c = color(aColor)
   return color("rgba(" + [red(c), green(c), blue(c), alpha].join(",") + ")")
+}
+
+function setSymbolColors(i, j) {
+  switch (PARAMS.fade) {
+    case 0:
+      return fill(colorAlpha(PARAMS.symbolColor, 1))
+      break
+
+    case -1:
+      return fill(
+        // colorAlpha(PARAMS.symbolColor, (PARAMS.cols / j) * PARAMS.fadeStrength)
+        colorAlpha(
+          PARAMS.symbolColor,
+          (j / PARAMS.cols) * PARAMS.fadeStrength * 2
+        )
+      )
+      break
+
+    case -2:
+      return fill(
+        colorAlpha(
+          PARAMS.symbolColor,
+          (i / PARAMS.rows) * PARAMS.fadeStrength * 2
+        )
+      )
+      break
+  }
 }
 
 function setup() {
@@ -69,6 +99,31 @@ function setup() {
     label: "Vertical Randomness",
   })
 
+  pane.addInput(PARAMS, "density", {
+    min: 1,
+    max: 5,
+    label: "Symbol Density",
+    step: 0.1,
+  })
+
+  pane.addInput(PARAMS, "fade", {
+    label: "Fade",
+    options: {
+      "No fade": 0,
+      // "Left to right": 1,
+      "Right to left": -1,
+      // "Top to bottom": 2,
+      "Bottom to top": -2,
+    },
+  })
+
+  pane.addInput(PARAMS, "fadeStrength", {
+    min: 0,
+    max: 1,
+    step: 0.01,
+    label: "Fade Strength",
+  })
+
   pane.on("change", (ev) => {
     redraw()
   })
@@ -90,7 +145,12 @@ function draw() {
     for (let j = 0; j < PARAMS.cols; j++) {
       // fill(0, 0, 0, (255 / PARAMS.rows) * i)
       // fill(0, 0, 0, (90 * PARAMS.cols) / j)
-      fill(colorAlpha(PARAMS.symbolColor, 1))
+      // fill(colorAlpha(PARAMS.symbolColor, 1))
+
+      setSymbolColors(i, j)
+
+      // fill(colorAlpha(PARAMS.symbolColor, (j / PARAMS.cols) * 1))
+
       text(
         PARAMS.symbol,
         (boxWidth / PARAMS.cols) * j -
