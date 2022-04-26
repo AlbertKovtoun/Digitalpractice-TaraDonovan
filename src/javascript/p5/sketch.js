@@ -6,8 +6,6 @@ export const setSketch = (p) => {
   let boxWidth = boxDimensions
   let boxHeight = boxDimensions
 
-  let sizeText = 32
-
   const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -17,6 +15,7 @@ export const setSketch = (p) => {
 
   const PARAMS = {
     symbol: "{",
+    symbolSize: 32,
     symbolColor: "#000000",
     backgroundColor: "#ffffff",
     rows: 30,
@@ -68,6 +67,13 @@ export const setSketch = (p) => {
 
     pane.addInput(PARAMS, "symbol", {
       label: "Symbol",
+    })
+
+    pane.addInput(PARAMS, "symbolSize", {
+      label: "Symbol Size",
+      min: 1,
+      max: 255,
+      step: 1,
     })
 
     pane.addInput(PARAMS, "symbolColor", {
@@ -143,8 +149,8 @@ export const setSketch = (p) => {
     // noStroke()
     // rect(0 - boxWidth / 2, 0 - boxHeight / 2, boxWidth, boxHeight)
 
-    p.textSize(sizeText)
-    // p.textAlign(LEFT, TOP)
+    p.textSize(PARAMS.symbolSize)
+    p.textAlign(p.LEFT, p.TOP)
 
     for (let i = 0; i < PARAMS.rows; i++) {
       for (let j = 0; j < PARAMS.cols; j++) {
