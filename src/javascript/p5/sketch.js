@@ -154,10 +154,6 @@ export const setSketch = (p) => {
 
     for (let i = 0; i < PARAMS.rows; i++) {
       for (let j = 0; j < PARAMS.cols; j++) {
-        // p.fill(0, 0, 0, (255 / PARAMS.rows) * i)
-        // p.fill(0, 0, 0, (90 * PARAMS.cols) / j)
-        // p.fill(colorAlpha(PARAMS.symbolColor, 1))
-
         setSymbolColors(i, j)
 
         p.text(
