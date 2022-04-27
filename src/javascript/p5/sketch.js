@@ -110,12 +110,12 @@ export const setSketch = (p) => {
       label: "Vertical Randomness",
     })
 
-    pane.addInput(PARAMS, "density", {
-      min: 1,
-      max: 5,
-      label: "Symbol Density",
-      step: 0.1,
-    })
+    // pane.addInput(PARAMS, "density", {
+    //   min: 1,
+    //   max: 5,
+    //   label: "Symbol Density",
+    //   step: 0.1,
+    // })
 
     pane.addInput(PARAMS, "fade", {
       label: "Fade",
